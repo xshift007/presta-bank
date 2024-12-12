@@ -15,6 +15,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableFeignClients // Habilita OpenFeign
 public class M1CreditSimulationServiceApplication {
 
 	public static void main(String[] args) {
