@@ -77,12 +77,12 @@ $services = @(
 # Define el orden de inicio
 $startupOrder = @(
     "config-server",
-    #"eureka-server",
-    "gateway-server"
-    #"m1-credit-simulation-service",
-    #"m2-user-registration-service",
-    #"m3-loan-application-service",
-    #"m4-loan-evaluation-service"
+    "eureka-server",
+    "gateway-server",
+    "m1-credit-simulation-service",
+    "m2-user-registration-service",
+    "m3-loan-application-service",
+    "m4-loan-evaluation-service"
 )
 
 # Detener procesos Java específicos (evita detener todos los procesos Java)
