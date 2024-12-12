@@ -1,0 +1,26 @@
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka-server-service:8761/eureka/
+spring:
+  application:
+    name: gateway-server
+  config:
+    import: configserver:http://config-server-service:8888
+  cloud:
+    gateway:
+      routes:
+        - id: credit-simulation
+          uri: lb://m1-credit-simulation-service
+          predicates:
+            - Path=/credit-simulation/**
+          filters:
+            - StripPrefix=1
+        - id: user-registration
+          uri: lb://m2-user-registration-service
+          predicates:
+            - Path=/user-registration/**
+          filters:
+            - StripPrefix=1

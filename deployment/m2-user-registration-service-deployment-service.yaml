@@ -1,0 +1,111 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m2-user-registration-service-deployment
+  labels:
+    app: m2-user-registration-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m2-user-registration-service
+  template:
+    metadata:
+      labels:
+        app: m2-user-registration-service
+    spec:
+      containers:
+        - name: m2-user-registration
+          image: xsh1ft/m2-user-registration-service:1.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config-map
+                  key: DB_PORT_M2
+
+            # Variables desde ConfigMap (host y nombre de BD)
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config-map
+                  key: DB_HOST_M2
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config-map
+                  key: DB_DBNAME_M2
+
+            # Variables desde Secret (usuario y password)
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials
+                  key: DB_USER_M2
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials
+                  key: DB_PASSWORD_M2
+
+            # Config Server y Eureka
+            - name: SPRING_CONFIG_IMPORT
+              value: "configserver:http://config-server-service:8888"
+            - name: SPRING_CLOUD_CONFIG_ENABLED
+              value: "true"
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: "http://eureka-server-service:8761/eureka/"
+
+            # URL del datasource
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:mysql://${DB_HOST}:3306/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true"
+
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials
+                  key: DB_USER_M2
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials
+                  key: DB_PASSWORD_M2
+            # Configuración de Actuator
+            - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+              value: "health,info"
+            - name: MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS
+              value: "always"
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: m2-user-registration-service
+  labels:
+    app: m2-user-registration-service
+spec:
+  selector:
+    app: m2-user-registration-service
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP

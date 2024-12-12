@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m2-db-deployment
+  labels:
+    app: m2-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m2-db
+  template:
+    metadata:
+      labels:
+        app: m2-db
+    spec:
+      containers:
+        - name: m2-db
+          image: mysql:8.0
+          args: [ "--default-authentication-plugin=mysql_native_password" ]
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials
+                  key: DB_PASSWORD_M2
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config-map
+                  key: DB_DBNAME_M2
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials
+                  key: DB_USER_M2
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials
+                  key: DB_PASSWORD_M2
+            - name: MYSQL_ROOT_HOST
+              value: "%"
+
+          ports:
+            - containerPort: 3306
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: m2-db-service
+  labels:
+    app: m2-db
+spec:
+  selector:
+    app: m2-db
+  ports:
+    - port: 3306
+      targetPort: 3306
+  type: ClusterIP
