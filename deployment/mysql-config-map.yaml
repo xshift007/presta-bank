@@ -6,10 +6,10 @@ metadata:
   labels:
     app: mysql-config-map
 data:
-  DB_HOST_M1: m1-db-service
-  DB_PORT_M1: "3306"
-  DB_DBNAME_M1: m1db
-
   DB_HOST_M2: m2-db-service
   DB_PORT_M2: "3306"
   DB_DBNAME_M2: m2db
+  
+  DB_HOST_M3: m3-db-service
+  DB_PORT_M3: "3306"
+  DB_DBNAME_M3: m3db

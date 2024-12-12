@@ -13,7 +13,9 @@ $services = @(
     "eureka-server",
     "gateway-server",
     "m1-credit-simulation-service",
-    "m2-user-registration-service"
+    "m2-user-registration-service",
+    "m3-loan-application-service",
+     "m4-loan-evaluation-service"
 )
 
 # Función para compilar un microservicio
@@ -53,13 +55,16 @@ kubectl apply -f deployment/eureka-server-deployment-service.yaml -n $NAMESPACE
 Write-Host "Desplegando Gateway Server..."
 kubectl apply -f deployment/gateway-server-deployment-service.yaml -n $NAMESPACE
 
-Write-Host "Desplegando Bases de Datos (M1 y M2)..."
-kubectl apply -f deployment/m1-db-deployment-service.yaml -n $NAMESPACE
+Write-Host "Desplegando Bases de Datos (M2 y M3)..."
 kubectl apply -f deployment/m2-db-deployment-service.yaml -n $NAMESPACE
+kubectl apply -f deployment/m3-db-deployment-service.yaml -n $NAMESPACE
 
 Write-Host "Desplegando Microservicios..."
 kubectl apply -f deployment/m1-credit-simulation-service-deployment-service.yaml -n $NAMESPACE
 kubectl apply -f deployment/m2-user-registration-service-deployment-service.yaml -n $NAMESPACE
+kubectl apply -f deployment/m3-loan-application-service-deployment-service.yaml -n $NAMESPACE
+kubectl apply -f deployment/m4-loan-evaluation-service-deployment-service.yaml -n $NAMESPACE
+
 
 Write-Host "Esperando que los pods estén disponibles..."
 
@@ -69,7 +74,9 @@ $deployments = @(
     "eureka-server-deployment",
     "gateway-server-deployment",
     "m1-credit-simulation-service-deployment",
-    "m2-user-registration-service-deployment"
+    "m2-user-registration-service-deployment",
+    "m3-loan-application-service-deployment",
+    "m4-loan-evaluation-service-deployment"
 )
 
 foreach ($deployment in $deployments) {

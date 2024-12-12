@@ -1,3 +1,4 @@
+# m2-db-deployment-service.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -28,7 +29,6 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
-
             - name: MYSQL_DATABASE
               valueFrom:
                 configMapKeyRef:
@@ -46,7 +46,6 @@ spec:
                   key: DB_PASSWORD_M2
             - name: MYSQL_ROOT_HOST
               value: "%"
-
           ports:
             - containerPort: 3306
 ---
@@ -63,3 +62,4 @@ spec:
     - port: 3306
       targetPort: 3306
   type: ClusterIP
+
