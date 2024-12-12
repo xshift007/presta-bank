@@ -1,9 +1,10 @@
 package com.example.creditsimulation.services;
 
 import com.example.creditsimulation.entity.CreditSimulation;
-import com.example.creditsimulation.repository.CreditSimulationRepository;
+import com.example.creditsimulation.repositories.CreditSimulationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * Servicio que contiene la lógica para simular el crédito.

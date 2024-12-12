@@ -1,4 +1,4 @@
-package com.example.loanapplication.controller;
+package com.example.loanapplication.controllers;
 
 import com.example.loanapplication.entity.User;
 import com.example.loanapplication.service.UserService;
