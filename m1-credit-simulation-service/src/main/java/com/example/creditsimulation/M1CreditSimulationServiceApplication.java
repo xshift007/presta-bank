@@ -3,6 +3,7 @@ package com.example.creditsimulation;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 /**
  * Clase principal del microservicio de simulación de créditos.
  * Main application class for the Credit Simulation Service.

@@ -1,4 +1,4 @@
-package com.example.creditsimulation.repository;
+package com.example.creditsimulation.repositories;
 
 import com.example.creditsimulation.entity.CreditSimulation;
 import org.springframework.data.jpa.repository.JpaRepository;
