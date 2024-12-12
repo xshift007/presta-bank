@@ -8,10 +8,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>m1-credit-simulation-service</artifactId>
+	<artifactId>m2-user-registration-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>m1-credit-simulation-service</name>
-	<description>M1 - Credit Simulation Service</description>
+	<name>m2-user-registration-service</name>
+	<description>User Registration Service</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
