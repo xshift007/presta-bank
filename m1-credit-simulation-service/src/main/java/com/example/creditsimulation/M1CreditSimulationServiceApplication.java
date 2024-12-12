@@ -3,16 +3,13 @@ package com.example.creditsimulation;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-
 /**
-<<<<<<< HEAD
- * Main application class for the Credit Simulation Service.
- * Enables Discovery Client for service registration with Eureka.
-=======
  * Clase principal del microservicio de simulación de créditos.
+ * Main application class for the Credit Simulation Service.
  * Se habilita EurekaClient para registro futuro en Eureka Server.
->>>>>>> origin/main
+ * Enables Discovery Client for service registration with Eureka.
  */
+
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients // Habilita OpenFeign

@@ -9,6 +9,7 @@ import lombok.Data;
  */
 @Entity
 @Data
+@EnableFeignClients // Habilita OpenFeign
 public class CreditSimulation {
 
     @Id

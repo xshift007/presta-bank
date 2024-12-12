@@ -1,15 +1,17 @@
-package com.example.creditsimulation.controller;
+package com.example.creditsimulation.controllers;
 
 import com.example.creditsimulation.entity.CreditSimulation;
-import com.example.creditsimulation.service.CreditSimulationService;
+import com.example.creditsimulation.services.CreditSimulationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * Controlador REST para el microservicio de simulación de crédito.
  */
 @RestController
 @RequestMapping("/")
+@EnableFeignClients // Habilita OpenFeign
 public class SimulationController {
 
     @Autowired

@@ -3,9 +3,13 @@ Param(
     [string]$VERSION = "1.0",          # Versión/tag de la imagen
     [string]$NAMESPACE = "default"     # Namespace de Kubernetes
 )
-
 # Establecer que el script se detenga si hay errores
 $ErrorActionPreference = "Stop"
+
+# Seleccionar el contexto de Kubernetes
+Write-Host "Seleccionando el contexto de Kubernetes: $KUBE_CONTEXT"
+kubectl config use-context $KUBE_CONTEXT
+
 
 # Definir los directorios de los microservicios
 $services = @(

@@ -1,4 +1,4 @@
-package com.example.creditsimulation.service;
+package com.example.creditsimulation.services;
 
 import com.example.creditsimulation.entity.CreditSimulation;
 import com.example.creditsimulation.repository.CreditSimulationRepository;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 /**
  * Servicio que contiene la lógica para simular el crédito.
  */
+@EnableFeignClients // Habilita OpenFeign
 @Service
 public class CreditSimulationService {
 
